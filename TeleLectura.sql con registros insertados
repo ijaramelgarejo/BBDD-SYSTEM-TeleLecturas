@@ -1,0 +1,114 @@
+--Creamos las Secuencia para las PK de cada tabla
+CREATE SEQUENCE tipo_Alerta_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE Periodicidad_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE Notificacion_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE Medio_Comunicacion_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE Tipo_teleLectura_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE Param_Notif_TeleLectura_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+------------------------------------------------------
+-- Creación la tabla tipo_Alerta
+CREATE TABLE tipo_Alerta (
+    id NUMBER(11) DEFAULT tipo_Alerta_seq.NEXTVAL PRIMARY KEY,
+    Descripcion VARCHAR2(50)
+);
+
+-- Creación la tabla Periodicidad
+CREATE TABLE Periodicidad (
+    id NUMBER(11) DEFAULT Periodicidad_seq.NEXTVAL PRIMARY KEY,
+    Descripcion VARCHAR2(50) 
+);
+
+-- Creación la tabla Notificacion
+CREATE TABLE Notificacion (
+    id NUMBER(11) DEFAULT Notificacion_seq.NEXTVAL PRIMARY KEY,
+    Descripcion VARCHAR2(50)
+);
+
+-- Creación la tabla Medio_Comunicacion
+CREATE TABLE Medio_Comunicacion (
+    id NUMBER(11) DEFAULT Medio_Comunicacion_seq.NEXTVAL PRIMARY KEY,
+    Descripcion VARCHAR2(50)
+);
+
+-- Creación la tabla Tipo_teleLectura
+CREATE TABLE Tipo_teleLectura (
+    id NUMBER(11) DEFAULT Tipo_teleLectura_seq.NEXTVAL PRIMARY KEY,
+    Descripcion VARCHAR2(50)
+);
+
+-- Creación la tabla Param_Notif_TeleLectura
+CREATE TABLE Param_Notif_TeleLectura (
+    id NUMBER(11) DEFAULT Param_Notif_TeleLectura_seq.NEXTVAL PRIMARY KEY,
+    cantidad NUMBER(11),
+    dias_entre_alertas NUMBER(11),
+    responsable VARCHAR2(500),
+    id_tipo_alerta NUMBER(11),
+    id_Periodicidad NUMBER(11),
+    id_Notificacion NUMBER(11),
+    id_Medio_Comunicacion NUMBER(11),
+    id_teleLectura NUMBER(11),
+    CONSTRAINT fk_param_tipo_alerta FOREIGN KEY (id_tipo_alerta) REFERENCES tipo_Alerta(id),
+    CONSTRAINT fk_Param_Periodicidad FOREIGN KEY (id_Periodicidad) REFERENCES Periodicidad(id),
+    CONSTRAINT fk_Param_Notificacion FOREIGN KEY (id_Notificacion) REFERENCES Notificacion(id),
+    CONSTRAINT fk_Param_medio_com FOREIGN KEY (id_Medio_Comunicacion) REFERENCES Medio_Comunicacion(id),
+    CONSTRAINT fk_Param_Tipo_teleLectura FOREIGN KEY (id_teleLectura) REFERENCES Tipo_teleLectura(id)
+);
+
+--drop table Param_Notif_TeleLectura;
+--drop table tipo_Alerta;
+--drop table Periodicidad;
+--drop table Notificacion;
+--drop table Medio_Comunicacion;
+--drop table Tipo_teleLectura;
+----------------------------------------
+--Insertamos datos en la tabla TIPO_ALERTA
+INSERT INTO tipo_Alerta (Descripcion) VALUES ('fuga');
+INSERT INTO tipo_Alerta (Descripcion) VALUES ('Explosión/Rotura');
+INSERT INTO tipo_Alerta (Descripcion) VALUES ('Manipulación');
+
+--Insertamos datos en la tabla PERIODICIDAD
+INSERT INTO Periodicidad (Descripcion) VALUES ('Semanal');
+INSERT INTO Periodicidad (Descripcion) VALUES ('Mensual');
+INSERT INTO Periodicidad (Descripcion) VALUES ('Consecutiva');
+INSERT INTO Periodicidad (Descripcion) VALUES ('Por Cantidad');
+
+--Insertamos datos en la tabla NOTIFICACIÓN
+INSERT INTO Notificacion (Descripcion) VALUES ('Internas');
+INSERT INTO Notificacion (Descripcion) VALUES ('Clientes');
+
+--Insertamos datos en la tabla MEDIO_COMUNICACIÓN
+INSERT INTO Medio_Comunicacion (Descripcion) VALUES ('Ambas');
+INSERT INTO Medio_Comunicacion (Descripcion) VALUES ('SMS');
+INSERT INTO Medio_Comunicacion (Descripcion) VALUES ('Email');
+
+--Insertamos datos en la tabla TIPO_TELELECTURA
+INSERT INTO Tipo_teleLectura (Descripcion) VALUES ('Movil');
+INSERT INTO Tipo_teleLectura (Descripcion) VALUES ('Fija');
+
+
+
+
+
